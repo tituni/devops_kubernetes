@@ -14,3 +14,10 @@
     kubectl create deployment hashgenerator-dep --image=jakousa/dwk-app1 
     kubectl get pods
 ```
+
+## Manifests
+
+```cmd
+    kubectl apply -f manifests/deployment.yaml
+    kubectl delete -f manifests/deployment.yaml
+```
