@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: log-file-dep
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: log-file
+  template:
+    metadata:
+      labels:
+        app: log-file
+    spec:
+      volumes:
+        - name: shared-logs
+          emptyDir: {}
+      containers:
+        - name: hashserver-read
+          image: titunidoc/devops_logfile:read_1.10
+          volumeMounts:
+          - name: shared-logs
+            mountPath: /usr/src/app/files
+        - name: hashserver-write
+          image: titunidoc/devops_logfile:write_1.102
+          volumeMounts:
+          - name: shared-logs
+            mountPath: /usr/src/app/files

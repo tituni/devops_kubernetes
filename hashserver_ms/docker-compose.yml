@@ -1,0 +1,18 @@
+version: '3.1'
+
+services:
+  write:
+    container_name: logs_write
+    image: titunidoc/devops_logfile:write_1.102
+    volumes:
+      - shared-logs:/usr/src/app/files
+  read:
+    container_name: logs_read
+    image: titunidoc/devops_logfile:read_1.10
+    volumes:
+      - shared-logs:/usr/src/app/files
+    ports:
+      - 3001:3000
+
+volumes:
+  shared-logs:
