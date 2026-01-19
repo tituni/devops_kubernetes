@@ -7,3 +7,5 @@
 - [1.3](https://github.com/tituni/devops_kubernetes/tree/1.3)
 
 - [1.4](https://github.com/tituni/devops_kubernetes/tree/1.4)
+
+- [1.5](https://github.com/tituni/devops_kubernetes/tree/1.5)
