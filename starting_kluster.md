@@ -40,3 +40,9 @@
     k3d cluster delete
     k3d cluster create --port 8083:30080@agent:0 -p 8082:80@loadbalancer --agents 2
 ```
+
+## Persistent volume 
+
+``cmd
+    docker exec k3d-k3s-default-agent-0 mkdir -p /tmp/kube
+```

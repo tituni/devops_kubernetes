@@ -14,7 +14,8 @@ spec:
     spec:
       volumes:
         - name: shared-logs
-          emptyDir: {}
+          persistentVolumeClaim:
+            claimName: shared-logs-claim
       containers:
         - name: hashserver-read
           image: titunidoc/devops_logfile:read_1.10
