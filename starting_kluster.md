@@ -28,6 +28,12 @@
     kubectl port-forward to-do-xxxxxxxxxxx 3004:3001
 ```
 
+## Getting configs for monitor
+
+```cmd
+    kubectl config view --minify --raw
+```
+
 ## Cluster delete, start new with LB
 
 ```cmd

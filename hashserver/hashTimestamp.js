@@ -10,11 +10,10 @@ const generateRandomString = (length) => {
 };
 
 
-const PrintTimestamp = () => {
+const PrintTimestamp = (hash) => {
     const currentDate = new Date();
-    //const randomString = Math.floor(Math.random() * currentDate).toString(36);
     const formattedDate = currentDate.toISOString();
-    const finalHashStamp = `${formattedDate}: ${generateRandomString(32)}`;
+    const finalHashStamp = `${formattedDate}: ${hash ? hash:generateRandomString(32)}`;
     return finalHashStamp;
 }
 
