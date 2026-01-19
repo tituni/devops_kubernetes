@@ -13,7 +13,7 @@ spec:
         app: to-do
     spec:
       containers:
-        - name: envar-to-do-container
+        - name: to-do
           image: titunidoc/devops_kubernetes:1.52
           env:
           - name: PORT

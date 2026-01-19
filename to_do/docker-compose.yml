@@ -3,7 +3,7 @@ version: '3.1'
 services:
   notesdemo:
     container_name: notes_demo_1
-    image: titunidoc/devops_kubernetes:1.51
+    image: titunidoc/devops_kubernetes:1.52
     restart: always
     environment:
       DB_HOST: mysql_db
