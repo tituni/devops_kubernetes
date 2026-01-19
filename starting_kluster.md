@@ -27,3 +27,10 @@
 ```cmd
     kubectl port-forward to-do-xxxxxxxxxxx 3004:3001
 ```
+
+## Cluster delete, start new with LB
+
+```cmd
+    k3d cluster delete
+    k3d cluster create --port 8083:30080@agent:0 -p 8082:80@loadbalancer --agents 2
+```

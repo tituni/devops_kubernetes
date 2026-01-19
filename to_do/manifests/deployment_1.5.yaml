@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: envar-to-do-container
-          image: titunidoc/devops_kubernetes:1.51
+          image: titunidoc/devops_kubernetes:1.52
           env:
           - name: PORT
             value: "3001"
