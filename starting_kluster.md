@@ -21,3 +21,9 @@
     kubectl apply -f manifests/deployment.yaml
     kubectl delete -f manifests/deployment.yaml
 ```
+
+## Port forwarding (temporally for dev)
+
+```cmd
+    kubectl port-forward to-do-xxxxxxxxxxx 3004:3001
+```
