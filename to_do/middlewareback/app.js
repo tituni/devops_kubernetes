@@ -3,11 +3,10 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
-var indexRouter = require('./routes/index');
-//var usersRouter = require('./routes/users');
 var loginRouter = require('./routes/loginRouter');
 var registerRouter = require('./routes/registerRouter');
 var notesRouter = require('./routes/notesRouter');
+var imageRouter = require('./routes/imageRouter');
 
 // middlewares:
 var isAuthenticated = require('./middlewares/auth');  // AUTH
@@ -29,5 +28,7 @@ app.use(express.static(path.join(__dirname, 'build')));
 app.use('/login', loginRouter);
 app.use('/register', validateSchema(userschema), registerRouter);
 app.use('/notes', isAuthenticated, validateSchema(noteschema), notesRouter);
+app.use('/image', imageRouter);
+
 
 module.exports = app;

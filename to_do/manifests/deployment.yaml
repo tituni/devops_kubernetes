@@ -12,9 +12,14 @@ spec:
       labels:
         app: to-do
     spec:
+      volumes:
+        - name: shared-logs
+          persistentVolumeClaim:
+            claimName: shared-logs-claim
       containers:
         - name: to-do
           image: titunidoc/devops_kubernetes:1.52
+          mountPath: /usr/src/app/files
           env:
           - name: PORT
             value: "3001"
@@ -32,3 +37,6 @@ spec:
             value: "notes_db"
           - name: SECRET
             value: "tosisalainensalasanainen"
+            volumeMounts:
+          - name: shared-logs
+          
