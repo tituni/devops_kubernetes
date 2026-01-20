@@ -8,11 +8,17 @@ services:
       - shared-logs:/usr/src/app/files
   read:
     container_name: logs_read
-    image: titunidoc/devops_logfile:read_1.10
+    image: titunidoc/devops_logfile:read_1.11
     volumes:
       - shared-logs:/usr/src/app/files
     ports:
       - 3001:3000
-
+  pingpong:
+    container_name: pingpong
+    image: titunidoc/devops_pingpong:1.11
+    volumes:
+      - shared-logs:/usr/src/app/files
+    ports:
+      - 3002:3000
 volumes:
   shared-logs:

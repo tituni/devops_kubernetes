@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: log-file-dep
+  name: log-file
 spec:
   replicas: 1
   selector:
@@ -18,7 +18,7 @@ spec:
             claimName: shared-logs-claim
       containers:
         - name: hashserver-read
-          image: titunidoc/devops_logfile:read_1.10
+          image: titunidoc/devops_logfile:read_1.114
           volumeMounts:
           - name: shared-logs
             mountPath: /usr/src/app/files

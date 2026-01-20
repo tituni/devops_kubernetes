@@ -18,8 +18,8 @@
 ## Manifests
 
 ```cmd
-    kubectl apply -f manifests/deployment.yaml
-    kubectl delete -f manifests/deployment.yaml
+    kubectl apply -f manifests
+    kubectl delete -f manifests
 ```
 
 ## Port forwarding (temporally for dev)
@@ -43,6 +43,12 @@
 
 ## Persistent volume 
 
-``cmd
+```cmd
     docker exec k3d-k3s-default-agent-0 mkdir -p /tmp/kube
+```
+
+## Debug
+
+```cmd
+    kubectl get svc,ing
 ```
