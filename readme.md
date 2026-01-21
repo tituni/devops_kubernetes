@@ -21,3 +21,5 @@
 - [1.10](https://github.com/tituni/devops_kubernetes/tree/1.10)
 
 - [1.11](https://github.com/tituni/devops_kubernetes/tree/1.11)
+
+- [1.12](https://github.com/tituni/devops_kubernetes/tree/1.12)
