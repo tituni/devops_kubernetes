@@ -1,0 +1,30 @@
+version: '3.1'
+
+services:
+  notesdemoback:
+    container_name: notes_demo_back
+    image: titunidoc/devops_kubernetes:back_2.21 
+    restart: always
+    environment:
+      DB_HOST: mysql_db
+      DB_USER: root
+      DB_PASS: mypass123_for_testing
+      DB_DATABASE: my_testing_db
+      DB_TYPE: mysql2
+      DB_PORT: 3306
+      PORT: 3001
+      SECRET: tosisalainensaiyvutfytdtretdrlasanainen_for_testing
+    ports:
+      - 3004:3001
+  notesdemofront:
+    container_name: notes_demo_front
+    image: titunidoc/devops_kubernetes:front_2.21  
+    restart: always
+    volumes:
+      - shared-logs:/usr/src/app/files
+    environment:
+      DB_PORT: 3306
+    ports:
+      - 3005:3001
+volumes:
+  shared-logs:
