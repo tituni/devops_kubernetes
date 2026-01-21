@@ -3,8 +3,10 @@ version: '3.1'
 services:
   notesdemo:
     container_name: notes_demo_1
-    image: titunidoc/devops_kubernetes:1.52
+    image: titunidoc/devops_kubernetes:1.1216
     restart: always
+    volumes:
+      - shared-logs:/usr/src/app/files
     environment:
       DB_HOST: mysql_db
       DB_USER: root
@@ -17,3 +19,5 @@ services:
     ports:
       - 3001:3001
 
+volumes:
+  shared-logs:

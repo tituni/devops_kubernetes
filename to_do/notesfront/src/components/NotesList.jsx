@@ -10,7 +10,7 @@ const NotesList = ({notes, submitNew, deleteNote, updateNote}) => {
             <form onSubmit={e=>{submitNew(e, newNote, newImportance);
                                 setNewNote("");
                                 setNewImportance(false)}}>
-            <input onChange={e=>setNewNote(e.target.value)} 
+            <input onChange={e=>{if(e.target.value.length < 140){setNewNote(e.target.value)}}} 
                    id="newNote" 
                    value={newNote}/>
             <input onChange={()=>setNewImportance(!newImportance)} 
@@ -20,7 +20,7 @@ const NotesList = ({notes, submitNew, deleteNote, updateNote}) => {
             <input type='submit' />
             </form>
             <ul>
-            {notes.map((n)=> <li onClick={()=>updateNote(n.id)} className={n.important?'important':'normal'} key={n.id}>{n.content} <button className='deletebutton' onClick={e=>deleteNote(n.id,e)}>Delete</button></li>)}
+            {notes.map((n)=> <li onClick={()=>updateNote(n.id)} className={n.important?'important':'normal'} key={n.id}>{n.content} <button className='deletebutton' onClick={e=>console.log("del")/*deleteNote(n.id,e)*/}>Delete</button></li>)}
             </ul>
         </div>
     )

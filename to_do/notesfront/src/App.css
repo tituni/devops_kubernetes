@@ -70,3 +70,7 @@
 input {
   margin: 0.4em;
 }
+
+.frontimage {
+  width: 50%;
+}

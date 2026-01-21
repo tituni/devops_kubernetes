@@ -18,8 +18,10 @@ spec:
             claimName: shared-logs-claim
       containers:
         - name: to-do
-          image: titunidoc/devops_kubernetes:1.52
-          mountPath: /usr/src/app/files
+          image: titunidoc/devops_kubernetes:1.1217
+          volumeMounts:
+          - name: shared-logs
+            mountPath: /usr/src/app/files
           env:
           - name: PORT
             value: "3001"

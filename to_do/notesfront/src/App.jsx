@@ -9,13 +9,37 @@ import notesService from './services/notesservice'
 const loginURL = '/api/login'
 const registerURL = '/api/register'
 
+// for testing
+const fixedList = [
+    {
+      content: "study",
+      important: true,
+      date: new Date().toISOString()
+    },
+    {
+      content: "work",
+      important: true,
+      date: new Date().toISOString()
+    },
+    {
+      content: "go home",
+      important: true,
+      date: new Date().toISOString()
+    },
+    {
+      content: "sleep",
+      important: true,
+      date: new Date().toISOString()
+    }
+]
+
 const App = () => {
-  const [notes, setNotes] = useState([])
+  const [notes, setNotes] = useState(fixedList)
   const [errorMessage, setErrorMessage ]=useState("")
   const [message, setMessage ]=useState("")
   const [user, setUser] = useState(null);  
   const [togglelogin, setToggleLogin] = useState(false);
-
+  
 const userHook = () => {
     const loggedUserJSON = window.localStorage.getItem('notesdemouser')
     if (loggedUserJSON) {
@@ -66,10 +90,11 @@ const userHook = () => {
       important: isImportant,
       date: new Date().toISOString()
     }
-    notesService.add(testNote)
-    .then ((promise)=> {
-      setNotes(notes.concat(promise)) 
-    }) 
+  //  notesService.add(testNote)
+  //  .then ((promise)=> {
+  //    setNotes(notes.concat(promise)) 
+   setNotes(notes.concat(testNote)) 
+  //  }) 
     .catch(()=>{
       setErrorMessage("error in adding note")
     })
@@ -132,7 +157,7 @@ const mylogout = () => {
   
   return (
     <>
-      <div className='error'>{errorMessage}</div> 
+      {/* <div className='error'>{errorMessage}</div> 
       <div className='normalmessage'>{message}</div> 
        <h1 className='appname'>My NotesApp</h1> 
      {!user && togglelogin && <Login loginHandler={loginHandler}/>}
@@ -140,15 +165,16 @@ const mylogout = () => {
      {!user && <button className="togglebutton" onClick={()=>setToggleLogin(!togglelogin)}>
         {togglelogin ? "Not registered yet" : "I have an account"}
       </button>}
-      {user && 
+      {user &&  */}
                 <> 
+                  <img className="frontimage" src="/image"/>
                   <NotesList notes={notes} 
                     submitNew={newNote} 
                     deleteNote={deleteNote} 
                     updateNote={changeImportance}/>
-                  <button onClick={mylogout}>Logout</button>
+                  {/* <button onClick={mylogout}>Logout</button> */}
                 </>
-      }
+      {/* } */}
     </>
   )
 }
