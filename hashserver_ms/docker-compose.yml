@@ -1,6 +1,13 @@
 version: '3.1'
 
 services:
+  ping-pong-svc:
+    container_name: pingpong
+    image: titunidoc/devops_pingpong:1.141
+    volumes:
+      - shared-logs:/usr/src/app/files
+    ports:
+      - 2345:3001
   write:
     container_name: logs_write
     image: titunidoc/devops_logfile:write_1.102
@@ -8,17 +15,12 @@ services:
       - shared-logs:/usr/src/app/files
   read:
     container_name: logs_read
-    image: titunidoc/devops_logfile:read_1.11
+    image: titunidoc/devops_logfile:read_1.144
     volumes:
       - shared-logs:/usr/src/app/files
     ports:
       - 3001:3000
-  pingpong:
-    container_name: pingpong
-    image: titunidoc/devops_pingpong:1.11
-    volumes:
-      - shared-logs:/usr/src/app/files
-    ports:
-      - 3002:3000
+    depends_on:
+      - ping-pong-svc
 volumes:
   shared-logs:

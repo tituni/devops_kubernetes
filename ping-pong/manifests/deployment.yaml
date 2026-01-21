@@ -18,7 +18,7 @@ spec:
             claimName: shared-logs-claim
       containers:
         - name: ping-pong
-          image: titunidoc/devops_pingpong:1.111
+          image: titunidoc/devops_pingpong:1.144
           volumeMounts:
           - name: shared-logs
             mountPath: /usr/src/app/files

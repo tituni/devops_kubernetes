@@ -18,7 +18,7 @@ spec:
             claimName: shared-logs-claim
       containers:
         - name: hashserver-read
-          image: titunidoc/devops_logfile:read_1.114
+          image: titunidoc/devops_logfile:read_1.147
           volumeMounts:
           - name: shared-logs
             mountPath: /usr/src/app/files
