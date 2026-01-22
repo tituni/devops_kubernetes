@@ -51,4 +51,18 @@
 
 ```cmd
     kubectl get svc,ing
+    kubectl describe pods xxxxxxxxxxxxxx
+```
+
+## Namespace
+
+```cmd
+    kubectl create namespace example-namespace
+```
+
+## Install tools
+
+```cmd
+    scoop bucket add main
+    scoop install main/kubens main/kubectx
 ```
