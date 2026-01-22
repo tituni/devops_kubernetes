@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: to-do-front
+  namespace: project
 spec:
   replicas: 1
   selector:
@@ -15,7 +16,7 @@ spec:
       volumes:
         - name: shared-logs
           persistentVolumeClaim:
-            claimName: shared-logs-claim
+            claimName: project-cache-claim
       containers:
         - name: to-do-front
           image: titunidoc/devops_kubernetes:front_2.26 
