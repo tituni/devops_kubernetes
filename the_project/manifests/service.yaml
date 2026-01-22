@@ -8,5 +8,10 @@ spec:
     app: to-do
   ports:
     - port: 2345
+      name: to-do-back-svc
       protocol: TCP
       targetPort: 3001
+    - port: 2346
+      name: to-do-front-svc
+      protocol: TCP
+      targetPort: 3004

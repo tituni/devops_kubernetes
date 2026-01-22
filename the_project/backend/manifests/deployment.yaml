@@ -1,24 +1,20 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: to-do
+  name: to-do-back
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: to-do
+      app: to-do-back
   template:
     metadata:
       labels:
-        app: to-do
+        app: to-do-back
     spec:
-      volumes:
-        - name: shared-logs
-          persistentVolumeClaim:
-            claimName: shared-logs-claim
       containers:
         - name: to-do-back
-          image: titunidoc/devops_kubernetes:back_2.25
+          image: titunidoc/devops_kubernetes:back_2.26
           env:
           - name: PORT
             value: "3004"
@@ -36,12 +32,5 @@ spec:
             value: "notes_db"
           - name: SECRET
             value: "tosisalainensalasanainen"
-        - name: to-do-front
-          image: titunidoc/devops_kubernetes:front_2.24 
-          volumeMounts:
-          - name: shared-logs
-            mountPath: /usr/src/app/files
-          env:
-          - name: PORT
-            value: "3001"     
+     
           

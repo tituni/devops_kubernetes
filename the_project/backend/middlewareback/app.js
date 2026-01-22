@@ -32,9 +32,9 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
-app.use('/login', loginRouter);
-app.use('/register', validateSchema(userschema), registerRouter);
-app.use('/notes', /* isAuthenticated, validateSchema(noteschema), notesRouter*/ simpleNotesRouter);
+app.use('/api/login', loginRouter);
+app.use('/api/register', validateSchema(userschema), registerRouter);
+app.use('/api/notes', /* isAuthenticated, validateSchema(noteschema), notesRouter*/ simpleNotesRouter);
 
 
 module.exports = app;

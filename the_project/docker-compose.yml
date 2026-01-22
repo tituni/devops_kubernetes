@@ -23,7 +23,7 @@ services:
     volumes:
       - shared-logs:/usr/src/app/files
     environment:
-      DB_PORT: 3306
+      PORT: 3001
     ports:
       - 3005:3001
 volumes:

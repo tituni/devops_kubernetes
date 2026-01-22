@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: to-do-front
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: to-do-front
+  template:
+    metadata:
+      labels:
+        app: to-do-front
+    spec:
+      volumes:
+        - name: shared-logs
+          persistentVolumeClaim:
+            claimName: shared-logs-claim
+      containers:
+        - name: to-do-front
+          image: titunidoc/devops_kubernetes:front_2.26 
+          volumeMounts:
+          - name: shared-logs
+            mountPath: /usr/src/app/files
+          env:
+          - name: PORT
+            value: "3005"     
+          
