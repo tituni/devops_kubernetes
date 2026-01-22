@@ -2,12 +2,18 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+const cors = require('cors')
 
 var loginRouter = require('./routes/loginRouter');
 var registerRouter = require('./routes/registerRouter');
 var notesRouter = require('./routes/notesRouter');
 
 var simpleNotesRouter = require('./routes/simpleNotesRouter');
+
+// enabling CORS for some specific origins only.
+let corsOptions = {
+   origin : ['http://localhost:3005'],
+}
 
 // middlewares:
 var isAuthenticated = require('./middlewares/auth');  // AUTH
@@ -20,6 +26,7 @@ var noteschema = require('./schemas/noteSchema.json');
 
 var app = express();
 
+app.use(cors(/*corsOptions*/))
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));

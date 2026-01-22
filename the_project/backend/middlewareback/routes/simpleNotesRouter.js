@@ -9,7 +9,7 @@ router.get('/', (req, res, next) => {
 
 router.post('/', (req, res, next) => {
     notes = notes.concat(req.body)
-    res.json(note);
+    res.json(req.body);
 })
 
 module.exports = router;
