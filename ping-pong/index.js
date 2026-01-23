@@ -1,31 +1,74 @@
 const express = require('express')
 const app = express()
 
-/*const path = require('node:path');
-const fs = require('node:fs')
+const config = require('./utils/config')
+const options = config.DATABASE_OPTIONS;
+const PORT = config.PORT;
 
-const directory = path.join('/', 'usr', 'src', 'app', 'files')
-const filePath = path.join(directory, 'pingpong.txt')*/
+let knex = null
 
-let counter = 0;
+console.log(`config`, options)
 
-app.get('/pingpong', (req, res) => {
-    counter++;
-/*    fs.writeFile(filePath, `${counter}`, err => {
-      if (err) {
-        res.send(`pong: ERROR`)
-      } else {
-        res.send(`pong ${counter}`)
-      }
-    });*/
-    res.send(`pong ${counter}`)
-})
+try {
+    knex = require('knex')(options);
+}
+catch(err) {
+  console.log(`error connecting to db: ${err}`)
+  console.log(`config`, options)
+  return
+}
 
-app.get('/pings', (req, res) => {
-    res.send(`${counter}`)
-})
+const tableName = "pingcounter"
 
-const PORT = 3001
-app.listen(PORT, () => {
+knex.schema.hasTable(tableName)
+.then(hasTable => {
+  if(!hasTable){
+        knex.schema.createTable(tableName, function (table) {
+          table.increments('id').primary();
+          table.int('value');
+          table.timestamps(false, true);
+    });
+  } 
+  app.get('/pingpong', (req, res) => {
+    knex(tableName).select('*')
+        .then((rows) => {
+          if(rows.length >= 1){
+            const newRow = {
+              value: rows[0].value + 1,
+              id: rows[0].id
+            }
+            knex(tableName).update(newRow).where('id', '=', newRow.id)
+            .then(ret => {
+                return res.send(`pong ${newRow.value}`)
+            }) 
+          } else {
+            knex(tableName).insert({value: 0})
+            .then(ret => {
+                res.send(`pong 0`)
+            })
+          }
+        })
+        .catch((err)=> {
+           res.send(`DB error: ${err}`)
+        })
+  })
+
+  app.get('/pings', (req, res) => {
+    knex(tableName).select('*')
+        .then((rows) => {
+          if(rows.length >= 1){
+             res.send(`${rows[0].value}`)
+          } else {
+             res.status(500).send(`table empty`)
+          }
+        })
+        .catch((err)=> {
+           res.send(`DB error: ${err}`)
+        })
+  })
+  
+  app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`)
+  })
 })
+
