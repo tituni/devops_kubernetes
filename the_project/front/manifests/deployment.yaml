@@ -19,11 +19,13 @@ spec:
             claimName: project-cache-claim
       containers:
         - name: to-do-front
-          image: titunidoc/devops_kubernetes:front_2.26 
+          image: titunidoc/devops_kubernetes:front_2.6 
           volumeMounts:
           - name: shared-logs
             mountPath: /usr/src/app/files
           env:
           - name: PORT
             value: "3005"     
+          - name: IMAGE_URL
+            value: "https://picsum.photos/1200"  
           

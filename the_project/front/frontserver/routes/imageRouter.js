@@ -10,10 +10,13 @@ const directory = path.join('/', 'usr', 'src', 'app', 'files')
 const filePath = path.join(directory, 'dynamic.jpg')
 const filePathTimeStamp = path.join(directory, 'imagetimestamp.txt')
 
+const config = require('../utils/config')
+const IMAGE_URL = config.IMAGE_URL
+
 let oneMoreTime = 0;
 
 async function refreshImage() {
-  const url = "https://picsum.photos/1200";
+  const url = IMAGE_URL;
   try {
     const response = await fetch(url);
     if (!response.ok) {

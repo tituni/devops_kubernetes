@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: to-do-back
-          image: titunidoc/devops_kubernetes:back_2.26
+          image: titunidoc/devops_kubernetes:back_2.6
           env:
           - name: PORT
             value: "3004"
