@@ -34,4 +34,4 @@
 
 - [2.4](https://github.com/tituni/devops_kubernetes/tree/2.4/the_project)
 
-- [2.5](https://github.com/tituni/devops_kubernetes/tree/2.4/hashserver_ms)
+- [2.5](https://github.com/tituni/devops_kubernetes/tree/2.5/hashserver_ms)
