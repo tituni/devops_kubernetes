@@ -43,7 +43,7 @@ app.get('/logs', (req, res) => {
       .then(convertedtext => {
         console.log("this is it:", convertedtext)
         part2=convertedtext
-        res.send(`<p>file content:</p>${part3.toString()}<p><p>env variable: </p>${part4.toString()}<p>${part1.toString()}</p><p>Ping / Pongs: ${part2.toString()}</p>`);
+        res.send(`<p>file content:${part3.toString()}</p><p><p>env variable: MESSAGE=${part4.toString()}</p><p>${part1.toString()}</p><p>Ping / Pongs: ${part2.toString()}</p>`);
       })
   })
   .catch(err=>{
