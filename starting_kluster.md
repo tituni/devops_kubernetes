@@ -66,3 +66,12 @@
     scoop bucket add main
     scoop install main/kubens main/kubectx
 ```
+
+## configmap
+
+```cmd
+    kubectl create configmap exercises.infofile --from-file=information.txt
+    kubectl create configmap exercises.message --from-literal="MESSAGE=hello world"
+    kubectl describe configmaps exercises.message
+    kubectl get configmaps exercises.message -o yaml
+```

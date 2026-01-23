@@ -17,12 +17,23 @@ spec:
         - name: shared-logs
           persistentVolumeClaim:
             claimName: shared-logs-claim
+        - name: config-files
+          configMap: 
+              name: exercises.infofile
+              items:
+                - key: information.txt
+                  path: information.txt
       containers:
         - name: hashserver-read
-          image: titunidoc/devops_logfile:read_1.147
+          image: titunidoc/devops_logfile:read_2.6
           volumeMounts:
           - name: shared-logs
             mountPath: /usr/src/app/files
+          - name: config-files
+            mountPath: /usr/src/app/conf
+          envFrom:
+          - configMapRef:
+              name: exercises.message
         - name: hashserver-write
           image: titunidoc/devops_logfile:write_1.102
           volumeMounts:
