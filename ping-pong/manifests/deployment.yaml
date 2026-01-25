@@ -17,18 +17,7 @@ spec:
         - name: shared-logs
           persistentVolumeClaim:
             claimName: shared-logs-claim
-        - name:  postgres-data
-          persistentVolumeClaim:
-            claimName: postgres-data-claim3
       containers:
-        - name: db
-          image: postgres
-          volumeMounts: 
-          - name: postgres-data
-            mountPath: /var/lib/postgresql
-          env:
-          - name: POSTGRES_PASSWORD
-            value: "example"
         - name: ping-pong
           image: titunidoc/devops_pingpong:2.714
           volumeMounts:
@@ -42,9 +31,9 @@ spec:
           - name: DB_PASS
             value: "example"
           - name: DB_HOST
-            value: "db"
+            value: "postgres-svc"
           - name: DB_PORT
-            value: "5432"
+            value: "2347"
           - name: DB_TYPE
             value: "pg"
           - name: DB_DATABASE

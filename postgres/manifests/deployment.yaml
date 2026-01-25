@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: postgres-db
+  namespace: exercises
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: postgres-db
+  template:
+    metadata:
+      labels:
+        app: postgres-db
+    spec:
+      volumes:
+        - name: postgres-data
+          persistentVolumeClaim:
+            claimName: postgres-data-claim3
+      containers:
+        - name: db
+          image: postgres
+          volumeMounts: 
+          - name: postgres-data
+            mountPath: /var/lib/postgresql
+          env:
+          - name: POSTGRES_PASSWORD
+            value: "example"
+       

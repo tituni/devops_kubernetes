@@ -53,6 +53,7 @@
     kubectl get svc,ing
     kubectl describe pods xxxxxxxxxxxxxx
     kubectl get pvc
+    kubectl logs podnamexxxxx -c containernamexxxx
 ```
 
 ## Namespace
