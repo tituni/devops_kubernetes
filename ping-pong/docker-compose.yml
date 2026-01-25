@@ -31,7 +31,7 @@ services:
       - 8080:8080
   pingpong:
     container_name: pingpong
-    image:  titunidoc/devops_pingpong:2.713
+    image:  titunidoc/devops_pingpong:2.714
     restart: always
     volumes:
       - shared-logs:/usr/src/app/files

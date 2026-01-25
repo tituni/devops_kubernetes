@@ -52,6 +52,7 @@
 ```cmd
     kubectl get svc,ing
     kubectl describe pods xxxxxxxxxxxxxx
+    kubectl get pvc
 ```
 
 ## Namespace

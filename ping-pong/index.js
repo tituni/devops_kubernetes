@@ -7,6 +7,10 @@ const PORT = config.PORT;
 
 let knex = null
 
+console.log("pingpong started")
+
+console.log("pingpong config", options)
+
 try {
     knex = require('knex')(options);
 }
@@ -17,6 +21,8 @@ catch(err) {
 }
 
 const tableName = "pingcounter"
+
+console.log("knex ok")
 
 const checkTable = async () => {
   knex.schema.hasTable(tableName)
