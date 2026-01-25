@@ -37,3 +37,5 @@
 - [2.5](https://github.com/tituni/devops_kubernetes/tree/2.5/hashserver_ms)
 
 - [2.6](https://github.com/tituni/devops_kubernetes/tree/2.6/the_project)
+
+- [2.7](https://github.com/tituni/devops_kubernetes/tree/2.7/ping-pong)
