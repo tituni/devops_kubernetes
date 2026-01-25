@@ -16,7 +16,14 @@ services:
       POSTGRES_PASSWORD: example
     ports:
       - 5432:5432
-
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "postgres"]
+      interval: 10s
+      retries: 5
+      start_period: 10s
+      timeout: 10s
+    volumes:
+      - ./postgres-data:/var/lib/postgresql
   adminer:
     image: adminer
     restart: always
@@ -24,7 +31,7 @@ services:
       - 8080:8080
   pingpong:
     container_name: pingpong
-    image:  titunidoc/devops_pingpong:2.74
+    image:  titunidoc/devops_pingpong:2.713
     restart: always
     volumes:
       - shared-logs:/usr/src/app/files
@@ -32,13 +39,17 @@ services:
       PORT: 3001
       DB_USER: postgres
       DB_PASS: example
-      DB_HOST: localhost
+      DB_HOST: db
       DB_PORT: 5432
-      DB_TYPE: postgres
+      DB_TYPE: pg
       DB_DATABASE: postgres
       SECRET: tosisalainensalasanainen
     ports:
       - 3005:3001
+    depends_on:
+      db:
+        condition: service_healthy
       
 volumes:
   shared-logs:
+  postgres-data:

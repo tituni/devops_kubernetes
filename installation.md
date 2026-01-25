@@ -30,4 +30,15 @@ Run in bash:
     curl -s https://raw.githubusercontent.com/k3d-io/k3d/main/install.sh | bash
 ```
 
+### Other m3d install
 
+Install Scoop:
+
+```cmd
+    Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
+    Invoke-RestMethod -Uri https://get.scoop.sh | Invoke-Expression
+```
+
+```cmd
+    scoop install k3d
+```

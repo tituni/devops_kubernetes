@@ -7,8 +7,6 @@ const PORT = config.PORT;
 
 let knex = null
 
-console.log(`config`, options)
-
 try {
     knex = require('knex')(options);
 }
@@ -20,38 +18,46 @@ catch(err) {
 
 const tableName = "pingcounter"
 
-knex.schema.hasTable(tableName)
-.then(hasTable => {
-  if(!hasTable){
-        knex.schema.createTable(tableName, function (table) {
-          table.increments('id').primary();
-          table.int('value');
-          table.timestamps(false, true);
-    });
-  } 
+const checkTable = async () => {
+  knex.schema.hasTable(tableName)
+  .then(hasTable => {
+    console.log("hastable",hasTable)
+    if(!hasTable){
+         return knex.schema.createTable(tableName, function (table) {
+            table.increments('id').primary();
+            table.integer('value');
+      })}
+    else {
+        return Promise.resolve(true)
+      }
+    })
+}
+
+checkTable()
+.then(ret => {
   app.get('/pingpong', (req, res) => {
-    knex(tableName).select('*')
-        .then((rows) => {
-          if(rows.length >= 1){
-            const newRow = {
-              value: rows[0].value + 1,
-              id: rows[0].id
-            }
-            knex(tableName).update(newRow).where('id', '=', newRow.id)
-            .then(ret => {
-                return res.send(`pong ${newRow.value}`)
-            }) 
-          } else {
-            knex(tableName).insert({value: 0})
-            .then(ret => {
-                res.send(`pong 0`)
+        knex(tableName).select('*')
+            .then((rows) => {
+              if(rows.length >= 1){
+                const newRow = {
+                  value: rows[0].value + 1,
+                  id: rows[0].id
+                }
+                knex(tableName).update(newRow).where('id', '=', newRow.id)
+                .then(ret => {
+                    return res.send(`pong ${newRow.value}`)
+                }) 
+              } else {
+                knex(tableName).insert({value: 0})
+                .then(ret => {
+                    res.send(`pong 0`)
+                })
+              }
             })
-          }
+            .catch((err)=> {
+              res.send(`DB error: ${err}`)
+            })
         })
-        .catch((err)=> {
-           res.send(`DB error: ${err}`)
-        })
-  })
 
   app.get('/pings', (req, res) => {
     knex(tableName).select('*')
@@ -63,12 +69,19 @@ knex.schema.hasTable(tableName)
           }
         })
         .catch((err)=> {
-           res.send(`DB error: ${err}`)
+           res.send(`DB error 1: ${err}`)
         })
   })
-  
+
   app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`)
+      console.log(`Server running on port ${PORT}`)
   })
+  })
+.catch(err => {
+    console.log(`DB error 2: ${err}`)
 })
+
+  
+
+
 
