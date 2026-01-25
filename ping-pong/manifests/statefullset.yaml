@@ -1,0 +1,56 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: postgres-pingpong-stset
+  namespace: exercises
+spec:
+  serviceName: postgres-pingpong-svc
+  replicas: 1
+  selector:
+    matchLabels:
+      app: postgres-pingpong-app
+  template:
+    metadata:
+      labels:
+        app: postgres-pingpong-app
+    spec:
+      containers:
+        - name: ping-pong
+          image: titunidoc/devops_pingpong:2.714
+          env:
+          - name: PORT
+            value: "3001"
+          - name: DB_USER
+            value: "postgres"
+          - name: DB_PASS
+            value: "example"
+          - name: DB_HOST
+            value: "localhost"
+          - name: DB_PORT
+            value: "5432"
+          - name: DB_TYPE
+            value: "pg"
+          - name: DB_DATABASE
+            value: "postgres"
+        - name: db
+          image: postgres
+          ports:
+            - name: web
+              containerPort: 5432
+          volumeMounts: 
+          - name: postgres-data-storage
+            mountPath: /var/lib/postgresql
+          env:
+          - name: POSTGRES_PASSWORD
+            value: "example"  
+  volumeClaimTemplates:
+    - metadata:
+        name: postgres-data-storage
+        namespace: exercises
+      spec:
+        accessModes: ["ReadWriteOnce"]
+        storageClassName: local-path
+        resources:
+          requests:
+            storage: 100Mi
+       

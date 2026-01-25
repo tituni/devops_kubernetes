@@ -27,7 +27,7 @@ console.log("knex ok")
 const checkTable = async () => {
   knex.schema.hasTable(tableName)
   .then(hasTable => {
-    console.log("hastable",hasTable)
+    console.log("has table",hasTable)
     if(!hasTable){
          return knex.schema.createTable(tableName, function (table) {
             table.increments('id').primary();
