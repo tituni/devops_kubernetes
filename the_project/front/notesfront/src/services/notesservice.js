@@ -4,7 +4,7 @@ import axios from 'axios';
 
 //const baseUrl = 'http://localhost:3004/notes'
 
-const baseUrl = 'http://localhost:3004/api/notes'
+const baseUrl = 'http://localhost:8082/api/notes'
 
 let token = null;
 

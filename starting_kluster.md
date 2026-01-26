@@ -50,9 +50,10 @@
 ## Debug
 
 ```cmd
-    kubectl get svc,ing
-    kubectl describe pods xxxxxxxxxxxxxx
+    kubectl get svc
+    kubectl get ing
     kubectl get pvc
+    kubectl describe pods xxxxxxxxxxxxxx
     kubectl logs podnamexxxxx -c containernamexxxx
 ```
 

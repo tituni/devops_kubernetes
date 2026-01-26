@@ -1,0 +1,112 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: to-do-stset
+  namespace: project
+spec:
+  serviceName: to-do-svc
+  replicas: 1
+  selector:
+    matchLabels:
+      app: to-do-app
+  template:
+    metadata:
+      labels:
+        app: to-do-app
+    spec:
+      volumes:
+        - name: shared-logs
+          persistentVolumeClaim:
+            claimName: project-cache-claim
+      containers:
+        - name: to-do-back
+          image: titunidoc/devops_kubernetes:back_2.184
+          env:
+          - name: PORT
+            value: "3001"
+          - name: DB_USER
+            value: "postgres"
+          - name: DB_PASS
+            value: "example"
+          - name: DB_HOST
+            value: "localhost"
+          - name: DB_PORT
+            value: "5432"
+          - name: DB_TYPE
+            value: "pg"
+          - name: DB_DATABASE
+            value: "postgres"
+        - name: db
+          image: postgres
+          ports:
+            - name: web
+              containerPort: 5432
+          volumeMounts: 
+          - name: postgres-data-storage
+            mountPath: /var/lib/postgresql
+          env:
+          - name: POSTGRES_PASSWORD
+            value: "example"  
+        - name: to-do-front
+          image: titunidoc/devops_kubernetes:front_2.185 
+          volumeMounts:
+          - name: shared-logs
+            mountPath: /usr/src/app/files
+          env:
+          - name: PORT
+            value: "3005"     
+          - name: IMAGE_URL
+            value: "https://picsum.photos/1200"  
+  volumeClaimTemplates:
+    - metadata:
+        name: postgres-data-storage
+        namespace: project
+      spec:
+        accessModes: ["ReadWriteOnce"]
+        storageClassName: local-path
+        resources:
+          requests:
+            storage: 100Mi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: postgres-svc
+  namespace: project
+  labels:
+    app: postgres
+spec:
+  ports:
+  - port: 5432
+    name: web
+  clusterIP: None
+  selector:
+    app: to-do-app
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: to-do-back-svc
+  namespace: project
+spec:
+  type: ClusterIP
+  ports:
+    - port: 2347
+      protocol: TCP
+      targetPort: 3001
+  selector:
+    app: to-do-app
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: to-do-front-svc
+  namespace: project
+spec:
+  type: ClusterIP
+  ports:
+    - port: 2346
+      protocol: TCP
+      targetPort: 3005
+  selector:
+    app: to-do-app
