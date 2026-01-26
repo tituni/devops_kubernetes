@@ -53,4 +53,32 @@ spec:
         resources:
           requests:
             storage: 100Mi
-       
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: postgres-svc
+  namespace: exercises
+  labels:
+    app: postgres
+spec:
+  ports:
+  - port: 5432
+    name: web
+  clusterIP: None
+  selector:
+    app: postgres-pingpong-app
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: ping-pong-svc
+  namespace: exercises
+spec:
+  type: ClusterIP
+  ports:
+    - port: 2345
+      protocol: TCP
+      targetPort: 3001
+  selector:
+    app: postgres-pingpong-app
