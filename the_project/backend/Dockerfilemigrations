@@ -1,0 +1,8 @@
+FROM node:latest 
+
+WORKDIR /mydir  
+COPY middlewareback . 
+RUN npm install
+COPY db/migrations ./migrations
+COPY db/knexfile.js .
+CMD npx knex migrate:latest && node ./bin/www 

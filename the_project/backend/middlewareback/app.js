@@ -4,6 +4,8 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 const cors = require('cors')
 
+var checkTable = require('./utils/checkTable')
+
 var loginRouter = require('./routes/loginRouter');
 var registerRouter = require('./routes/registerRouter');
 var notesRouter = require('./routes/notesRouter');
@@ -26,15 +28,21 @@ var noteschema = require('./schemas/noteSchema.json');
 
 var app = express();
 
-app.use(cors(/*corsOptions*/))
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
+app.use(cors(/*corsOptions*/))
 
-app.use('/api/login', loginRouter);
-app.use('/api/register', validateSchema(userschema), registerRouter);
-app.use('/api/notes', /* isAuthenticated, validateSchema(noteschema), notesRouter*/ simpleNotesRouter);
-
+checkTable()
+.then(ret => {
+   //app.use('/api/login', loginRouter);
+   //app.use('/api/register', validateSchema(userschema), registerRouter);
+   app.use('/api/notes', /* isAuthenticated, validateSchema(noteschema), notesRouter*/ simpleNotesRouter);
+})
+.catch(err => {
+    console.log(`DB error 2: ${err}`)
+    return
+})
 
 module.exports = app;
