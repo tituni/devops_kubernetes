@@ -91,3 +91,9 @@ Install Scoop:
     kubectl create namespace loki-stack
     helm upgrade --install loki --namespace=loki-stack grafana/loki-stack --set loki.image.tag=2.9.3
 ```
+
+### Google cloud
+
+```cmd
+    gcloud container clusters create dwk-cluster --zone=europe-north1-b --cluster-version=1.32 --disk-size=32 --num-nodes=3 --machine-type=e2-micro
+```
