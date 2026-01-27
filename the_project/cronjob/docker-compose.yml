@@ -1,0 +1,38 @@
+version: '3.1'
+
+services:
+  db:
+    image: postgres
+    restart: always
+    shm_size: 128mb
+    environment:
+      POSTGRES_PASSWORD: example
+    ports:
+      - 5432:5432
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "postgres"]
+      interval: 10s
+      retries: 5
+      start_period: 10s
+      timeout: 10s
+    volumes:
+      - ./postgres-data:/var/lib/postgresql
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8080:8080
+  notesjob:
+    container_name: notes_demo_cron
+    image: titunidoc/devops_kubernetes:cron_2.1910 
+    environment:
+      DB_USER: postgres
+      DB_PASS: example
+      DB_HOST: db
+      DB_PORT: 5432
+      DB_TYPE: pg
+      DB_DATABASE: postgres
+      URL: https://en.wikipedia.org/wiki/Special:Random
+    depends_on:
+      db:
+        condition: service_healthy

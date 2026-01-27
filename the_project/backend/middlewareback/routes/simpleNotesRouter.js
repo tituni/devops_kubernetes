@@ -43,4 +43,46 @@ router.post('/', (req, res, next) => {
         })
 })
 
+router.delete('/:id', (req, res, next) => {
+    const id = req.params.id;
+    knex('notes').where('id', '=', id).del()
+        .then(status => {
+            console.log("deleted ok")
+            res.status(204).end();
+        })
+        .catch((err) => {
+            console.log(err);
+            res.status(500).json(
+                { error: err }
+            )
+        })
+})
+
+router.put('/:id', (req, res, next) => {
+    const id = req.params.id;
+    const note = req.body;
+    note.date = new Date(note.date);
+
+    // testaa id ja note!!!
+    if (isNaN(Number(id)) || note.content === undefined
+        || note.date === undefined
+        || note.important === undefined) {
+        return res.status(400).json(
+            { error: "check json-data and id" }
+        )
+    }
+
+    knex('notes').update(note, ['content', 'important', 'date']).where('id', '=', id)
+        .then((response) => {
+            console.log(response)
+            res.status(204).end();
+        })
+        .catch((err) => {
+            console.log(err);
+            res.status(500).json(
+                { error: err }
+            )
+        })
+})
+
 module.exports = router;

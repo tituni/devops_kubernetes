@@ -5,7 +5,7 @@ const tableName = "notes"
 const checkTable = async () => {
   knex.schema.hasTable(tableName)
   .then(hasTable => {
-    console.log("has table",hasTable)
+      console.log("has table",hasTable)
     if(!hasTable){
            return knex.schema.createTable('notes', t => {
                 t.increments('id').primary()

@@ -9,30 +9,6 @@ import notesService from './services/notesservice'
 const loginURL = '/api/login'
 const registerURL = '/api/register'
 
-// for testing
-const fixedList = [
-    {
-      content: "study",
-      important: true,
-      date: new Date().toISOString()
-    },
-    {
-      content: "work",
-      important: true,
-      date: new Date().toISOString()
-    },
-    {
-      content: "go home",
-      important: true,
-      date: new Date().toISOString()
-    },
-    {
-      content: "sleep",
-      important: true,
-      date: new Date().toISOString()
-    }
-]
-
 const App = () => {
   const [notes, setNotes] = useState([])
   const [errorMessage, setErrorMessage ]=useState("")
@@ -50,9 +26,9 @@ const userHook = () => {
   }
 
   const startHook = () => {
-    if (user === null) {
+  /*  if (user === null) {
       return
-    }
+    }*/
     notesService.getAll()
     .then((promise)=> {
         setNotes(promise)
@@ -62,7 +38,7 @@ const userHook = () => {
     })
   }
 
-  useEffect(userHook,[]) 
+  //useEffect(userHook,[]) 
   useEffect(startHook, [user]) 
  
   const errorMessageHook = () => {
@@ -93,7 +69,6 @@ const userHook = () => {
    notesService.add(testNote)
    .then ((promise)=> {
      setNotes(notes.concat(promise)) 
-  // setNotes(notes.concat(testNote)) 
     }) 
     .catch(()=>{
       setErrorMessage("error in adding note")

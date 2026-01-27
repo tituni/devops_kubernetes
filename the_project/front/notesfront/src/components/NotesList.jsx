@@ -20,7 +20,7 @@ const NotesList = ({notes, submitNew, deleteNote, updateNote}) => {
             <input type='submit' />
             </form>
             <ul>
-            {notes.map((n)=> <li onClick={()=>updateNote(n.id)} className={n.important?'important':'normal'} key={n.id}>{n.content} <button className='deletebutton' onClick={e=>console.log("del")/*deleteNote(n.id,e)*/}>Delete</button></li>)}
+            {notes.map((n)=> <li onClick={()=>updateNote(n.id)} className={n.important?'important':'normal'} key={n.id}>{n.content} <button className='deletebutton' onClick={e=>deleteNote(n.id,e)}>Delete</button></li>)}
             </ul>
         </div>
     )
