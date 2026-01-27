@@ -19,8 +19,18 @@ knex('notes').select('*')
 
 router.post('/', (req, res, next) => {
     const note = req.body;
-    console.log(note);
+    
+    console.log("POST:", note);
+
     if (note.content === undefined || note.important === undefined) {
+         console.log("ERROR: content or important missing")
+        return res.status(400).json(
+            { error: "check json-data" }
+        )
+    }
+
+    if (note.content.length > 140) {
+        console.log("ERROR: content too long ", note.content)
         return res.status(400).json(
             { error: "check json-data" }
         )

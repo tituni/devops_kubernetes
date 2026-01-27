@@ -42,3 +42,52 @@ Install Scoop:
 ```cmd
     scoop install k3d
 ```
+
+### Helm
+
+```cmd
+    scoop install helm
+    helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
+    helm repo add stable https://charts.helm.sh/stable
+    helm repo update
+```
+
+- Commands:
+
+```cmd
+    helm delete [name]
+    helm list -n prometheus
+```
+
+### Prometheus
+
+```cmd
+    kubectl create namespace prometheus
+    helm install prometheus-community/kube-prometheus-stack --generate-name --namespace prometheus
+```
+
+### Connect prometheus - grafana
+
+```cmd
+    kubectl -n prometheus port-forward [your_stack_name] 3000
+```
+
+- Access http://localhost:3000(opens in a new tab) with a browser and use the credentials admin / prom-operator
+
+### Change admin password for grafana
+
+- namespace is: prometheus
+- new password is: admin123
+
+```cmd
+    kubectl exec --namespace prometheus -it $(kubectl get pods --namespace prometheus -l "app.kubernetes.io/name=grafana" -o jsonpath="{.items[0].metadata.name}") -- grafana cli admin reset-admin-password admin123
+```
+
+### Add loki
+
+```cmd
+    helm repo add grafana https://grafana.github.io/helm-charts
+    helm repo update
+    kubectl create namespace loki-stack
+    helm upgrade --install loki --namespace=loki-stack grafana/loki-stack --set loki.image.tag=2.9.3
+```

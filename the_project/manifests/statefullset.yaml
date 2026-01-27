@@ -20,7 +20,7 @@ spec:
             claimName: project-cache-claim
       containers:
         - name: to-do-back
-          image: titunidoc/devops_kubernetes:back_2.191
+          image: titunidoc/devops_kubernetes:back_2.10
           env:
           - name: PORT
             value: "3001"
