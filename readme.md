@@ -50,4 +50,4 @@
 
 - [3.2](https://github.com/tituni/devops_kubernetes/tree/3.2/hashserver_ms)
 
-- [3.3](https://github.com/tituni/devops_kubernetes/tree/3.2/ping-pong)
+- [3.3](https://github.com/tituni/devops_kubernetes/tree/3.3/ping-pong)
