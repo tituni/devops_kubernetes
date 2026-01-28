@@ -1,0 +1,53 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: log-file
+  namespace: exercises
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: log-file
+  template:
+    metadata:
+      labels:
+        app: log-file
+    spec:
+      volumes:
+        - name: shared-logs
+          persistentVolumeClaim:
+            claimName: shared-logs-claim
+        - name: config-files
+          configMap: 
+              name: exercises.infofile
+              items:
+                - key: information.txt
+                  path: information.txt
+      containers:
+        - name: hashserver-read
+          image: titunidoc/devops_logfile:read_3.2
+          volumeMounts:
+          - name: shared-logs
+            mountPath: /usr/src/app/files
+          - name: config-files
+            mountPath: /usr/src/app/conf
+          envFrom:
+          - configMapRef:
+              name: exercises.message
+        - name: hashserver-write
+          image: titunidoc/devops_logfile:write_1.102
+          volumeMounts:
+          - name: shared-logs
+            mountPath: /usr/src/app/files
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: shared-logs-claim # name of the volume claim, this will be used in the deployment
+  namespace: exercises
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
