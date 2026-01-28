@@ -4,10 +4,10 @@ metadata:
   name: log-file-lb-svc
   namespace: exercises
 spec:
-  type: ClusterIP
+  type: NodePort #LoadBalancer 
   selector:
     app: log-file
   ports:
-    - port: 2346
+    - port: 80
       protocol: TCP
       targetPort: 3000

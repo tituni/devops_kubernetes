@@ -55,6 +55,7 @@
     kubectl get pvc
     kubectl describe pods xxxxxxxxxxxxxx
     kubectl logs podnamexxxxx -c containernamexxxx
+    kubectl get events --sort-by=.metadata.creationTimestamp
 ```
 
 ## Namespace

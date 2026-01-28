@@ -1,0 +1,21 @@
+apiVersion: v1
+kind: ConfigMap
+data:
+  MESSAGE: hello world
+metadata:
+  creationTimestamp: "2026-01-28T10:17:40Z"
+  name: exercises.message
+  namespace: exercises
+  resourceVersion: "1769595460694447012"
+  uid: 03996974-59cd-4328-abd5-83cd92e37004
+---
+apiVersion: v1
+kind: ConfigMap
+data:
+  information.txt: this text is from the information.txt file
+metadata:
+  creationTimestamp: "2026-01-28T10:17:07Z"
+  name: exercises.infofile
+  namespace: exercises
+  resourceVersion: "1769595427104927006"
+  uid: 46a59000-bcbe-4a52-b3c9-defaf71f83ff

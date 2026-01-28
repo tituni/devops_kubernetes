@@ -20,7 +20,6 @@ async function streamToString(stream) {
   return await text(stream);
 }
 
-
 app.get('/logs', (req, res) => {
   let part1=""
   let part2="" 
@@ -49,6 +48,10 @@ app.get('/logs', (req, res) => {
   .catch(err=>{
     res.status(500).send(`error ${err}`)
   })
+})
+
+app.get('/', (req, res) => {
+  res.send(`<h1>Hello Logs!</h1>`)
 })
 
 const PORT = 3000
