@@ -61,7 +61,7 @@ checkTable()
               }
             })
             .catch((err)=> {
-              res.send(`DB error: ${err}`)
+              res.status(500).send(`DB error: ${err}`)
             })
         })
 
@@ -75,8 +75,11 @@ checkTable()
           }
         })
         .catch((err)=> {
-           res.send(`DB error 1: ${err}`)
+           res.status(500).send(`DB error 1: ${err}`)
         })
+  })
+  app.get('/', (req, res) => {
+    res.send(`<h1>Hello Pingpong!</h1>`)
   })
 
   app.listen(PORT, () => {

@@ -94,6 +94,15 @@ Install Scoop:
 
 ### Google cloud
 
+- In Powershell:
+
 ```cmd
+    gcloud auth login
+    gcloud config set project [your_project]
     gcloud container clusters create dwk-cluster --zone=europe-north1-b --cluster-version=1.32 --disk-size=32 --num-nodes=3 --machine-type=e2-micro
+    gcloud components install gke-gcloud-auth-plugin
+    gcloud container clusters get-credentials [your-cluster] --location=europe-north2-b   
+    kubectl cluster-info
+    kubectl get po --namespace=exercises
+    gcloud network-management connectivity-tests list
 ```
