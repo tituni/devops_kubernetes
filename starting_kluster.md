@@ -87,3 +87,8 @@
      kubectl edit configmap project.database
 ```
 
+## Gateway
+
+```cmd
+    kubectl get gateway logs-gateway --namespace exercises
+```

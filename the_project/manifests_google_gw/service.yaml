@@ -1,0 +1,74 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: postgres-svc
+  namespace: project
+  labels:
+    app: postgres
+spec:
+  ports:
+  - port: 5432
+    name: web
+  clusterIP: None
+  selector:
+    app: to-do-app
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: to-do-back-svc
+  namespace: project
+spec:
+  type: ClusterIP
+  ports:
+    - port: 2347
+      protocol: TCP
+      targetPort: 3001
+  selector:
+    app: to-do-app
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: to-do-front-svc
+  namespace: project
+spec:
+  type: ClusterIP
+  ports:
+    - port: 2346
+      protocol: TCP
+      targetPort: 3005
+  selector:
+    app: to-do-app
+--- 
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: update
+  namespace: project
+spec:
+  schedule: "0 * * * *"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: dbcronjob
+            image: titunidoc/devops_kubernetes:cron_2.1910
+            env:
+              - name: URL
+                value: https://en.wikipedia.org/wiki/Special:Random
+              - name: DB_PORT
+                value: "5432"
+              - name: DB_TYPE
+                value: "pg"
+              - name: DB_HOST
+                value: "postgres-svc"
+            envFrom:
+              - configMapRef:
+                  name: project.database
+              - configMapRef:
+                  name: project.dbpass
+              - configMapRef:
+                  name: project.dbuser
+          restartPolicy: Never # This time we'll run it only once
