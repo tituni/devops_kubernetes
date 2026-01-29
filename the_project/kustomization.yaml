@@ -1,0 +1,8 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - manifests_google_gw/configmap.yaml
+  - manifests_google_gw/service.yaml
+  - manifests_google_gw/gateway.yaml
+  - manifests_google_gw/route.yaml
+  - manifests_google_gw/statefullset.yaml

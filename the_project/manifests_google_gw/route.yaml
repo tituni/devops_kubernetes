@@ -1,6 +1,23 @@
 apiVersion: gateway.networking.k8s.io/v1beta1
 kind: HTTPRoute
 metadata:
+  name: project-route-back
+  namespace: project
+spec:
+  parentRefs:
+  - name: project-gateway 
+  rules:
+  - matches:
+    - path:
+        type: PathPrefix
+        value: /api/notes
+    backendRefs:
+    - name: to-do-back-svc
+      port: 2347
+---
+apiVersion: gateway.networking.k8s.io/v1beta1
+kind: HTTPRoute
+metadata:
   name: project-route-front
   namespace: project
 spec:
@@ -14,20 +31,3 @@ spec:
     backendRefs:
     - name: to-do-front-svc
       port: 2346
----
-apiVersion: gateway.networking.k8s.io/v1beta1
-kind: HTTPRoute
-metadata:
-  name: project-route-back
-  namespace: project
-spec:
-  parentRefs:
-  - name: project-gateway 
-  rules:
-  - matches:
-    - path:
-        type: PathPrefix
-        value: /
-    backendRefs:
-    - name: to-do-back-svc
-      port: 2347

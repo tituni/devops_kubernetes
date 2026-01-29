@@ -39,6 +39,9 @@ checkTable()
    //app.use('/api/login', loginRouter);
    //app.use('/api/register', validateSchema(userschema), registerRouter);
    app.use('/api/notes', /* isAuthenticated, validateSchema(noteschema), notesRouter*/ simpleNotesRouter);
+   app.get("/", function (req, res) {
+    res.send("404");   
+})
 })
 .catch(err => {
     console.log(`DB error 2: ${err}`)

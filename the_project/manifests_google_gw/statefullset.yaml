@@ -15,12 +15,12 @@ spec:
         app: to-do-app
     spec:
       volumes:
-        - name: shared-logs
+        - name: project-cache
           persistentVolumeClaim:
             claimName: project-cache-claim
       containers:
         - name: to-do-back
-          image: titunidoc/devops_kubernetes:back_2.10
+          image: titunidoc/devops_kubernetes:back_3.5
           env:
           - name: PORT
             value: "3001"
@@ -45,14 +45,16 @@ spec:
           volumeMounts: 
           - name: postgres-data-storage
             mountPath: /var/lib/postgresql
+            subPath: postgres
           envFrom:
           - configMapRef:
               name: project.pgpass
         - name: to-do-front
-          image: titunidoc/devops_kubernetes:front_2.191  
+          image: titunidoc/devops_kubernetes:front_3.5
           volumeMounts:
-          - name: shared-logs
+          - name: project-cache
             mountPath: /usr/src/app/files
+            subPath: cache 
           env:
           - name: PORT
             value: "3005"     
@@ -64,7 +66,19 @@ spec:
         namespace: project
       spec:
         accessModes: ["ReadWriteOnce"]
+        storageClassName: standard-rwo
         resources:
           requests:
             storage: 100Mi
-
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: project-cache-claim # name of the volume claim, this will be used in the deployment
+  namespace: project
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi

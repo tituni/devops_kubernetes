@@ -92,3 +92,9 @@
 ```cmd
     kubectl get gateway logs-gateway --namespace exercises
 ```
+
+## Kustomize
+
+```cmd
+    kubectl apply -k .
+```
