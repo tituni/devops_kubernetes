@@ -1,0 +1,16 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+images:
+  - name: PROJECT/IMAGE_BACK
+    newName: titunidoc/devops_kubernetes:back_3.5
+  - name: PROJECT/IMAGE_FRONT
+    newName: titunidoc/devops_kubernetes:front_3.5
+  - name: PROJECT/IMAGE_CRON
+    newName: titunidoc/devops_kubernetes:cron_2.1910
+
+resources:
+  - the_project/manifests_google_gw/configmap.yaml
+  - the_project/manifests_google_gw/service.yaml
+  - the_project/manifests_google_gw/gateway.yaml
+  - the_project/manifests_google_gw/route.yaml
+  - the_project/manifests_google_gw/statefullset.yaml
