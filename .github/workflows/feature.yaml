@@ -78,7 +78,7 @@ jobs:
       
       - name: Deploy
         run: |-
-          kubectl create namespace ${GITHUB_REF#refs/heads/} || true
+          kubectl get ns ${GITHUB_REF#refs/heads/} || kubectl create ns ${GITHUB_REF#refs/heads/}
           kubectl config set-context --current --namespace=${GITHUB_REF#refs/heads/}
           kustomize edit set namespace ${GITHUB_REF#refs/heads/}
           kustomize edit set image PROJECT/IMAGE_BACK=$IMAGE_TAG_BACK
