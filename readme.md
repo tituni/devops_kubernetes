@@ -53,3 +53,5 @@
 - [3.3](https://github.com/tituni/devops_kubernetes/tree/3.3/ping-pong)
 
 - [3.5](https://github.com/tituni/devops_kubernetes/tree/3.5/the_project)
+
+- [3.6](https://github.com/tituni/devops_kubernetes/tree/3.6/the_project)
