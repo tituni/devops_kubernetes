@@ -9,8 +9,10 @@ env:
   GKE_ZONE: europe-north2-b
   REGISTRY: europe-north2-docker.pkg.dev
   REPOSITORY: my-repository
-  IMAGE: dwk-environments
-  SERVICE: dwk-environments
+  IMAGE_BACK: todo-back
+  IMAGE_FRONT: todo-front
+  IMAGE_CRON: todo-cron
+  SERVICE: todo-service
   BRANCH: ${{ github.ref_name }}
 
 jobs:
@@ -43,13 +45,31 @@ jobs:
           location: '${{ env.GKE_ZONE }}'
 
       - name : 'Form the image name for back'
-        run: echo "IMAGE_TAG_BACK=$REGISTRY/$PROJECT_ID/$REPOSITORY/$IMAGE:$BRANCH-$GITHUB_SHA" >> $GITHUB_ENV
+        run: echo "IMAGE_TAG_BACK=$REGISTRY/$PROJECT_ID/$REPOSITORY/$IMAGE_BACK:$BRANCH-$GITHUB_SHA" >> $GITHUB_ENV
 
       - name: Build
         run: docker build --tag $IMAGE_TAG_BACK ./the_project/backend
 
       - name: Publish
         run: docker push $IMAGE_TAG_BACK
+
+      - name : 'Form the image name for front'
+        run: echo "IMAGE_TAG_FRONT=$REGISTRY/$PROJECT_ID/$REPOSITORY/$IMAGE_FRONT:$BRANCH-$GITHUB_SHA" >> $GITHUB_ENV
+
+      - name: Build
+        run: docker build --tag $IMAGE_TAG_FRONT ./the_project/front
+
+      - name: Publish
+        run: docker push $IMAGE_TAG_FRONT
+
+      - name : 'Form the image name for cron'
+        run: echo "IMAGE_TAG_CRON=$REGISTRY/$PROJECT_ID/$REPOSITORY/$IMAGE_CRON:$BRANCH-$GITHUB_SHA" >> $GITHUB_ENV
+
+      - name: Build
+        run: docker build --tag $IMAGE_TAG_CRON ./the_project
+
+      - name: Publish
+        run: docker push $IMAGE_TAG_CRON  
 
       # - name: Set up Kustomize
       #   uses: imranismail/setup-kustomize@v2.1.0
