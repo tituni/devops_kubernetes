@@ -59,3 +59,5 @@
 - [3.7](https://github.com/tituni/devops_kubernetes/tree/3.7/the_project)
 
 - [3.8](https://github.com/tituni/devops_kubernetes/tree/3.8/the_project)
+
+- [3.9](https://github.com/tituni/devops_kubernetes/tree/3.9/the_project)
