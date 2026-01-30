@@ -78,6 +78,7 @@ jobs:
       
       - name: Deploy
         run: |-
+          kubectl get ns project || kubectl create ns project
           kustomize edit set image PROJECT/IMAGE_BACK=$IMAGE_TAG_BACK
           kustomize edit set image PROJECT/IMAGE_FRONT=$IMAGE_TAG_FRONT
           kustomize edit set image PROJECT/IMAGE_CRON=$IMAGE_TAG_CRON
