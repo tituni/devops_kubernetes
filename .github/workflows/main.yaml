@@ -79,7 +79,7 @@ jobs:
           kustomize edit set image PROJECT/IMAGE_BACK=$IMAGE_TAG_BACK
           kustomize edit set image PROJECT/IMAGE_FRONT=$IMAGE_TAG_FRONT
           kustomize edit set image PROJECT/IMAGE_CRON=$IMAGE_TAG_CRON
-          kustomize build . | kubectl apply -k --server-side 
+          kustomize build . | kubectl apply -f --server-side - 
           if ! kubectl rollout status deployment/$SERVICE --namespace project --timeout=10m; then
             echo "Rollout epäonnistui, perutaan muutokset..."
             kubectl rollout undo deployment/$SERVICE --namespace project
