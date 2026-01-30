@@ -3,7 +3,7 @@ name: Release application
 on:
   push:
     branches:
-      - main
+      - feature/*
 
 env:
   PROJECT_ID: ${{ secrets.GKE_PROJECT }}
@@ -78,6 +78,9 @@ jobs:
       
       - name: Deploy
         run: |-
+          kubectl create namespace ${GITHUB_REF#refs/heads/} || true
+          kubectl config set-context --current --namespace=${GITHUB_REF#refs/heads/}
+          kustomize edit set namespace ${GITHUB_REF#refs/heads/}
           kustomize edit set image PROJECT/IMAGE_BACK=$IMAGE_TAG_BACK
           kustomize edit set image PROJECT/IMAGE_FRONT=$IMAGE_TAG_FRONT
           kustomize edit set image PROJECT/IMAGE_CRON=$IMAGE_TAG_CRON
