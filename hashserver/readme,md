@@ -1,0 +1,7 @@
+## Start-up of the service 
+
+You can start manually the app locally running this in the root folder of the the project:
+
+```cmd
+     kubectl apply -f manifests
+```
