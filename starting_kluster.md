@@ -98,3 +98,9 @@
 ```cmd
     kubectl apply -k .
 ```
+
+## github-actions create service-account key
+
+```cmd 
+    $ gcloud iam service-accounts keys create ./private-key.json --iam-account=todo-cicd@dwk-gke-485613.iam.gserviceaccount.com
+```

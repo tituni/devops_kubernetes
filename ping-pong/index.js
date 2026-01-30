@@ -41,7 +41,20 @@ const checkTable = async () => {
 
 checkTable()
 .then(ret => {
-  app.get('/pingpong', (req, res) => {
+  app.get('/pings', (req, res) => {
+    knex(tableName).select('*')
+        .then((rows) => {
+          if(rows.length >= 1){
+             res.send(`${rows[0].value}`)
+          } else {
+             res.status(500).send(`table empty`)
+          }
+        })
+        .catch((err)=> {
+           res.status(500).send(`DB error 1: ${err}`)
+        })
+  })
+  app.get('/', (req, res) => {
         knex(tableName).select('*')
             .then((rows) => {
               if(rows.length >= 1){
@@ -64,23 +77,9 @@ checkTable()
               res.status(500).send(`DB error: ${err}`)
             })
         })
-
-  app.get('/pings', (req, res) => {
-    knex(tableName).select('*')
-        .then((rows) => {
-          if(rows.length >= 1){
-             res.send(`${rows[0].value}`)
-          } else {
-             res.status(500).send(`table empty`)
-          }
-        })
-        .catch((err)=> {
-           res.status(500).send(`DB error 1: ${err}`)
-        })
-  })
-  app.get('/', (req, res) => {
+ /* app.get('/', (req, res) => {
     res.send(`<h1>Hello Pingpong!</h1>`)
-  })
+  })*/
 
   app.listen(PORT, () => {
       console.log(`Server running on port ${PORT}`)

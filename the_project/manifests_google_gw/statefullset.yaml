@@ -65,7 +65,7 @@ spec:
         name: postgres-data-storage
         namespace: project
       spec:
-        accessModes: ["ReadWriteOnce"]
+        accessModes: ["ReadWriteMany"]
         storageClassName: standard-rwo
         resources:
           requests:
