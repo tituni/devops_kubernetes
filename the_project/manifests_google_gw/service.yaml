@@ -54,7 +54,7 @@ spec:
         spec:
           containers:
           - name: dbcronjob
-            image: titunidoc/devops_kubernetes:cron_2.1910
+            image: PROJECT/IMAGE_CRON
             env:
               - name: URL
                 value: https://en.wikipedia.org/wiki/Special:Random

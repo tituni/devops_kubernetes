@@ -96,6 +96,7 @@
 ## Kustomize
 
 ```cmd
+    kubectl kustomize .
     kubectl apply -k .
 ```
 
