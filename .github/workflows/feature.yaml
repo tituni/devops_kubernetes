@@ -3,7 +3,7 @@ name: Release application
 on:
   push:
     branches:
-      - feature/*
+      - feature-*
 
 env:
   PROJECT_ID: ${{ secrets.GKE_PROJECT }}
@@ -78,12 +78,9 @@ jobs:
       
       - name: Deploy
         run: |-
-          # replace / with - 
-          CLEAN_TAG=$(echo "${{ github.head_ref || github.ref_name }}" | sed 's/\//-/g')
-          echo "SAFE_TAG=${CLEAN_TAG}" >> $GITHUB_ENV
-          kubectl create namespace ${{ env.SAFE_TAG }} || true
-          kubectl config set-context --current --namespace=${{ env.SAFE_TAG }}
-          kustomize edit set namespace ${{ env.SAFE_TAG }}
+          kubectl create namespace ${GITHUB_REF#refs/heads/} || true
+          kubectl config set-context --current --namespace=${GITHUB_REF#refs/heads/}
+          kustomize edit set namespace ${GITHUB_REF#refs/heads/}
           kustomize edit set image PROJECT/IMAGE_BACK=$IMAGE_TAG_BACK
           kustomize edit set image PROJECT/IMAGE_FRONT=$IMAGE_TAG_FRONT
           kustomize edit set image PROJECT/IMAGE_CRON=$IMAGE_TAG_CRON
