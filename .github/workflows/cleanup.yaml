@@ -16,6 +16,7 @@ env:
   IMAGE_CRON: todo-cron
   SERVICE: todo-service
   BRANCH: ${{ github.ref_name }}
+  NS_NAME: ${{ github.ref_name }} 
 
 jobs:
   build-publish-deploy:
@@ -48,5 +49,7 @@ jobs:
       
       - name: Cleanup
         run: |-
-          kubectl delete namespace ${GITHUB_REF#refs/heads/}
+          # --ignore-not-found estää putkea kaatumasta, jos se on jo poistettu
+          kubectl delete namespace $NS_NAME --ignore-not-found
+
   
