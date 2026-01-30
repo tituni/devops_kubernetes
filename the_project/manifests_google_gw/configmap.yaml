@@ -6,7 +6,6 @@ metadata:
   creationTimestamp: "2026-01-29T11:25:10Z"
   name: project.database
   namespace: project
-  uid: 53798b27-3c47-4ecd-987e-877b2d4c0b5d
 ---
 apiVersion: v1
 data:
@@ -16,7 +15,6 @@ metadata:
   creationTimestamp: "2026-01-29T11:25:32Z"
   name: project.dbpass
   namespace: project
-  uid: d3d339de-5f8b-4e92-a7eb-f6d5b27b1ca3
 ---
 apiVersion: v1
 data:
@@ -26,7 +24,6 @@ metadata:
   creationTimestamp: "2026-01-29T11:25:51Z"
   name: project.dbuser
   namespace: project
-  uid: 05f0187b-67ce-440e-8196-23f284f92aa5
 ---
 apiVersion: v1
 data:
@@ -36,7 +33,6 @@ metadata:
   creationTimestamp: "2026-01-29T11:26:22Z"
   name: project.dbhost
   namespace: project
-  uid: ac9c3c11-d134-404f-b1f7-229f2f6e4562
 ---
 apiVersion: v1
 data:
@@ -46,4 +42,3 @@ metadata:
   creationTimestamp: "2026-01-29T18:11:10Z"
   name: project.pgpass
   namespace: project
-  uid: e8fe27eb-4932-47e2-ae6c-00245dbc3ddf
