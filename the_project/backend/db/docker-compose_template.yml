@@ -2,15 +2,19 @@
 
  services:
    db:
-     image: mysql:8.0.27
-     restart: always
-     environment:
-       MYSQL_ROOT_PASSWORD: mypass123
-     ports:
-      - 3306:3306
+    image: 'postgres:latest'
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_USER: postgres # The PostgreSQL user (useful to connect to the database)
+      POSTGRES_PASSWORD: example # The PostgreSQL password (useful to connect to the database)
+      POSTGRES_DB: postgres 
 
-   phpmyadmin:
-     image: phpmyadmin
-     restart: always
-     ports:
-       - 8081:80
+   pgadmin:
+    image: dpage/pgadmin4
+    container_name: my-pgadmin
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@admin
+      PGADMIN_DEFAULT_PASSWORD: postgres
+    ports:
+      - "8088:80"

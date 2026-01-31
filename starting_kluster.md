@@ -105,3 +105,23 @@
 ```cmd 
     $ gcloud iam service-accounts keys create ./private-key.json --iam-account=todo-cicd@dwk-gke-485613.iam.gserviceaccount.com
 ```
+
+## Database backup
+
+- connect to a running container
+
+```cmd
+    docker exec -it container_id sh
+    psql -h localhost -p 5432 -U postgres 
+    \c postgres
+    \dt
+    create table if not exists product (
+        id              SERIAL,
+        name            VARCHAR(100) NOT NULL,
+        sku             CHAR(8)
+    );
+    INSERT INTO product VALUES(DEFAULT, 'Apple, Fuji', '4131');
+    INSERT INTO product VALUES(DEFAULT, 'Banana', '4011');
+    SELECT * FROM product;
+```
+
